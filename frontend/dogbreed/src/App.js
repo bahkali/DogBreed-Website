@@ -1,4 +1,7 @@
 import React from "react";
+
+import Navigation from "./components/navigation/navigation.component";
+
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { render } from "@testing-library/react";
@@ -7,37 +10,27 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-          <header class="masthead mb-auto">
-            <div class="inner">
-              <h3 class="masthead-brand">Cover</h3>
-              <nav class="nav nav-masthead justify-content-center">
-                <a class="nav-link active" href="#">
-                  Home
+        <Navigation />
+        <main role="main">
+          <section class="jumbotron text-center">
+            <div class="container">
+              <h1 class="jumbotron-heading">DOG BREED PREDICT</h1>
+              <p class="lead text-muted">
+                Something short and leading about the collection below—its
+                contents, the creator, etc. Make it short and sweet, but not too
+                short so folks don't simply skip over it entirely.
+              </p>
+              <p>
+                <a href="#" class="btn btn-primary my-2">
+                  Upload
                 </a>
-                <a class="nav-link" href="#">
-                  Features
+                <a href="#" class="btn btn-secondary my-2">
+                  Predict
                 </a>
-                <a class="nav-link" href="#">
-                  Contact
-                </a>
-              </nav>
+              </p>
             </div>
-          </header>
-          <main role="main" class="inner cover">
-            <h1 class="cover-heading">Cover your page.</h1>
-            <p class="lead">
-              Cover is a one-page template for building simple and beautiful
-              home pages. Download, edit the text, and add your own fullscreen
-              background photo to make it your own.
-            </p>
-            <p class="lead">
-              <a href="#" class="btn btn-lg btn-secondary">
-                Learn more
-              </a>
-            </p>
-          </main>
-        </div>
+          </section>
+        </main>
       </div>
     );
   }

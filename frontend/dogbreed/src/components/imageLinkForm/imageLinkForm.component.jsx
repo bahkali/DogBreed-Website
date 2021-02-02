@@ -5,7 +5,7 @@ const ImageLinkForm = ({ onInputChange, onSubmit }) => {
     <div>
       <p>{"You can also add a link to you pictures, Give it a Try "}</p>
       <div className="center">
-        <div class="input-group mb-3">
+        <div className="input-group mb-3">
           <input
             type="text"
             class="form-control"
@@ -14,7 +14,7 @@ const ImageLinkForm = ({ onInputChange, onSubmit }) => {
             onChange={onInputChange}
             aria-describedby="basic-addon2"
           />
-          <div class="input-group-append">
+          <div className="input-group-append">
             <button
               onClick={onSubmit}
               class="btn btn-outline-secondary"

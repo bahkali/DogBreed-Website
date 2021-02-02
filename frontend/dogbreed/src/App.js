@@ -1,7 +1,7 @@
 import React from "react";
 
 import Navigation from "./components/navigation/navigation.component";
-
+import ImageLinkForm from "./components/imageLinkForm/imageLinkForm.component";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { render } from "@testing-library/react";
@@ -24,10 +24,8 @@ class App extends React.Component {
                 <a href="#" class="btn btn-primary my-2">
                   Upload
                 </a>
-                <a href="#" class="btn btn-secondary my-2">
-                  Predict
-                </a>
               </p>
+              <ImageLinkForm />
             </div>
           </section>
         </main>

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 
 import Navigation from "./components/navigation/navigation.component";
-import ImageLinkForm from "./components/imageLinkForm/imageLinkForm.component";
+// import ImageLinkForm from "./components/imageLinkForm/imageLinkForm.component";
 import PredictResult from "./components/predictResult/predictResult.component";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
   const [testVal, setTestVal] = useState();
+  const [urlInput, setUrlInput] = useState();
   const [imageUrl, setImageUrl] = useState(
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
   );
@@ -39,6 +40,15 @@ function App() {
     });
   };
 
+  const onInputChange = (event) => {
+    let url = event.target.value;
+    setUrlInput(url);
+  };
+
+  const urlImageHandler = (e) => {
+    setImageUrl(urlInput);
+  };
+
   const imageHandler = (e) => {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -67,10 +77,30 @@ function App() {
                 onChange={imageHandler}
               />
             </p>
-            <ImageLinkForm />
-            <button className="btn btn-primary my-2" onClick={upLoadFile}>
-              Make prediction
-            </button>
+            <div>
+              <p>{"You can also add a link to you pictures, Give it a Try "}</p>
+              <div className="center">
+                <div className="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Picture link"
+                    aria-label="Picture link"
+                    aria-describedby="basic-addon2"
+                    onChange={onInputChange}
+                  />
+                  <div className="input-group-append">
+                    <button
+                      class="btn btn-outline-secondary"
+                      onClick={urlImageHandler}
+                      type="button"
+                    >
+                      Predict
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </main>

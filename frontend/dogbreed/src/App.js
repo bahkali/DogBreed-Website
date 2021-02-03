@@ -21,6 +21,24 @@ function App() {
       });
   }, []);
 
+  const upLoadFile = (e) => {
+    e.preventDefault();
+
+    const data = new FormData();
+    data.append("file", this.uploadInput.files[0]);
+
+    fetch("/api/uploadPredict", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: data,
+    }).then((response) => {
+      response.json().then((body) => {});
+    });
+  };
+
   const imageHandler = (e) => {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -50,6 +68,9 @@ function App() {
               />
             </p>
             <ImageLinkForm />
+            <button className="btn btn-primary my-2" onClick={upLoadFile}>
+              Make prediction
+            </button>
           </div>
         </section>
       </main>

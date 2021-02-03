@@ -7,16 +7,30 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
-  const [testVal, setTestVal] = useState(0);
+  const [testVal, setTestVal] = useState();
+  const [imageUrl, setImageUrl] = useState(
+    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+  );
 
   useEffect(() => {
-    fetch("/test")
+    fetch("/predict")
       .then((res) => res.json())
       .then((data) => {
         setTestVal(data.msg);
         console.log(data);
       });
   }, []);
+
+  const imageHandler = (e) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (reader.readyState === 2) {
+        setImageUrl(e.target.result);
+        console.log(e.target.result);
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
 
   return (
     <div className="App">
@@ -31,13 +45,15 @@ function App() {
                 id="image-select"
                 className="btn btn-primary my-2"
                 type="file"
+                accept="image/*"
+                onChange={imageHandler}
               />
             </p>
             <ImageLinkForm />
           </div>
         </section>
       </main>
-      <PredictResult />
+      <PredictResult imgeUrl={imageUrl} />
     </div>
   );
 }

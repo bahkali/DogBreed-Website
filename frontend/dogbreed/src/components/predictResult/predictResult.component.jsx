@@ -1,14 +1,16 @@
 import React from "react";
 
 import me from "./IMG_20191225_213953_990.jpg";
-const PredictResult = () => {
+const PredictResult = ({ imgeUrl }) => {
   return (
     <div className="container">
       <div className="row">
         <div className="col image-diplay">
           <figure className="figure">
             <img
-              src={me}
+              width="500px"
+              height="auto"
+              src={imgeUrl}
               className="figure-img img-fluid rounded"
               alt="A generic square placeholder image with rounded corners in a figure."
             />

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 
@@ -14,9 +14,22 @@ def create_app(test_config=None):
         response.headers.add('Access-Control-Allow-Methods', 'GET,PATCH,POST,DELETE,OPTIONS')
         return response
     
-    @app.route('/predict', methods=['GET'])
-    @cross_origin(allow_headers=['Content-Type'])
+    @app.route('/api/predict', methods=['GET'])
     def get_predict():
         return {'msg':'Hello'}
 
+
+    @app.route('/api/uploadPredict', methods=['GET','POST'])
+    def image_upload():
+        # file = request.get_json(force=True)
+        # response = {'msg': 'Worked!!!'} 
+        return {
+            'prediction': "Interesting",
+            'percentage': 105
+            } 
+
     return app
+
+    
+
+    

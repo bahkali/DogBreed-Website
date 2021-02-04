@@ -1,7 +1,6 @@
 import React from "react";
 
-import me from "./IMG_20191225_213953_990.jpg";
-const PredictResult = ({ imgeUrl }) => {
+const PredictResult = ({ imgeUrl, resultPredict }) => {
   return (
     <div className="container">
       <div className="row">
@@ -21,8 +20,8 @@ const PredictResult = ({ imgeUrl }) => {
         </div>
         <div className="col data-result">
           <div className="row">
-            <div class="col">.col-6 .col-sm-4</div>
-            <div class="col">.col-6 .col-sm-4</div>
+            <div class="col">{resultPredict.prediction}</div>
+            <div class="col">{resultPredict.percentage}</div>
           </div>
         </div>
       </div>

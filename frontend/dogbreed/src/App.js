@@ -4,6 +4,7 @@ import Navigation from "./components/navigation/navigation.component";
 // import ImageLinkForm from "./components/imageLinkForm/imageLinkForm.component";
 import PredictResult from "./components/predictResult/predictResult.component";
 import "./App.css";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
@@ -13,32 +14,17 @@ function App() {
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
   );
 
+  const [resultPredict, setResultPredict] = useState({
+    prediction: "Dog",
+    percentage: 95,
+  });
+
   useEffect(() => {
-    fetch("/predict")
-      .then((res) => res.json())
-      .then((data) => {
-        setTestVal(data.msg);
-        console.log(data);
-      });
-  }, []);
-
-  const upLoadFile = (e) => {
-    e.preventDefault();
-
-    const data = new FormData();
-    data.append("file", this.uploadInput.files[0]);
-
-    fetch("/api/uploadPredict", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: data,
-    }).then((response) => {
-      response.json().then((body) => {});
+    axios.get("/api/predict").then((res) => {
+      console.log(res.data);
+      setTestVal(res.data.msg);
     });
-  };
+  }, []);
 
   const onInputChange = (event) => {
     let url = event.target.value;
@@ -51,13 +37,18 @@ function App() {
 
   const imageHandler = (e) => {
     const reader = new FileReader();
+    let file;
     reader.onload = (e) => {
       if (reader.readyState === 2) {
         setImageUrl(e.target.result);
-        console.log(e.target.result);
+        file = e.target.result;
       }
     };
     reader.readAsDataURL(e.target.files[0]);
+    axios.post("/api/uploadPredict", file).then((res) => {
+      console.log("axios work");
+      setResultPredict(res.data);
+    });
   };
 
   return (
@@ -104,7 +95,7 @@ function App() {
           </div>
         </section>
       </main>
-      <PredictResult imgeUrl={imageUrl} />
+      <PredictResult imgeUrl={imageUrl} resultPredict={resultPredict} />
     </div>
   );
 }

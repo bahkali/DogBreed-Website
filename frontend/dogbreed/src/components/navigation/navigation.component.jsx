@@ -3,9 +3,6 @@ import React from "react";
 const Navigation = () => {
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-      <a className="navbar-brand" href="#">
-        Navbar
-      </a>
       <button
         className="navbar-toggler"
         type="button"
@@ -22,7 +19,7 @@ const Navigation = () => {
         <ul className="navbar-nav mr-auto">
           <li className="nav-item active">
             <a className="nav-link" href="#">
-              Home <span className="sr-only">(current)</span>
+              Reset <span className="sr-only">(current)</span>
             </a>
           </li>
           <li className="nav-item">

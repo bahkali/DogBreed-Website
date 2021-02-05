@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import Navigation from "./components/navigation/navigation.component";
 // import ImageLinkForm from "./components/imageLinkForm/imageLinkForm.component";
 import PredictResult from "./components/predictResult/predictResult.component";
@@ -7,17 +6,16 @@ import "./App.css";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
 
+const dummyUrl =
+  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+
 function App() {
   const [testVal, setTestVal] = useState();
   const [urlInput, setUrlInput] = useState();
-  const [imageUrl, setImageUrl] = useState(
-    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-  );
+  const [imageUrl, setImageUrl] = useState(dummyUrl);
+  const [imageFile, setImageFile] = useState();
 
-  const [resultPredict, setResultPredict] = useState({
-    prediction: "Dog",
-    percentage: 95,
-  });
+  const [resultPredict, setResultPredict] = useState();
 
   useEffect(() => {
     axios.get("/api/predict").then((res) => {
@@ -37,17 +35,24 @@ function App() {
 
   const imageHandler = (e) => {
     const reader = new FileReader();
-    let file;
+    setImageFile(e.target.files[0]);
+    let message = {};
     reader.onload = (e) => {
       if (reader.readyState === 2) {
         setImageUrl(e.target.result);
-        file = e.target.result;
+        message = {
+          image: e.target.result,
+        };
       }
     };
     reader.readAsDataURL(e.target.files[0]);
-    axios.post("/api/uploadPredict", file).then((res) => {
+    let file = e.target.files[0];
+    const fd = new FormData();
+    fd.append("image", file);
+    fd.append("filename", file.name);
+    axios.post("/api/uploadPredict", fd).then((res) => {
       console.log("axios work");
-      setResultPredict(res.data);
+      console.log(res);
     });
   };
 
@@ -59,15 +64,16 @@ function App() {
           <div className="container">
             <h1 className="jumbotron-heading">DOG BREED PREDICT</h1>
             <p className="lead text-muted"> {testVal}</p>
-            <p>
+            <div>
               <input
                 id="image-select"
                 className="btn btn-primary my-2"
                 type="file"
+                name="file"
                 accept="image/*"
                 onChange={imageHandler}
               />
-            </p>
+            </div>
             <div>
               <p>{"You can also add a link to you pictures, Give it a Try "}</p>
               <div className="center">
@@ -80,9 +86,10 @@ function App() {
                     aria-describedby="basic-addon2"
                     onChange={onInputChange}
                   />
+
                   <div className="input-group-append">
                     <button
-                      class="btn btn-outline-secondary"
+                      className="btn btn-outline-secondary"
                       onClick={urlImageHandler}
                       type="button"
                     >

@@ -20,8 +20,8 @@ const PredictResult = ({ imgeUrl, resultPredict }) => {
         </div>
         <div className="col data-result">
           <div className="row">
-            <div class="col">{resultPredict.prediction}</div>
-            <div class="col">{resultPredict.percentage}</div>
+            <div class="col"> Dog</div>
+            <div class="col"> Web Scrapper info</div>
           </div>
         </div>
       </div>

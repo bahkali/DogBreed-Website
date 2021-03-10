@@ -34,6 +34,7 @@ function App() {
   };
 
   const imageHandler = (e) => {
+    e.preventDefault();
     const reader = new FileReader();
     setImageFile(e.target.files[0]);
     let message = {};
@@ -47,13 +48,19 @@ function App() {
     };
     reader.readAsDataURL(e.target.files[0]);
     let file = e.target.files[0];
+    console.log(file);
     const fd = new FormData();
     fd.append("image", file);
     fd.append("filename", file.name);
-    axios.post("/api/uploadPredict", fd).then((res) => {
-      console.log("axios work");
-      console.log(res);
-    });
+    axios
+      .post("/api/uploadPredict", fd, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
   };
 
   return (
